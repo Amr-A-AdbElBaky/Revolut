@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="style_rates_title">
+       <item name="android:textSize">@dimen/font_rates_title</item>
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:fontFamily">@font/roboto_regular_font</item>
+    </style>
+</resources>

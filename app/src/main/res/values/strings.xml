@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Revolut</string>
+
+
+    <string name="screens_error_messages_internet_down">No internet connection.\n Please connect to the internet and try again.</string>
+    <string name="no_internet_screens_retry_btn_title">Retry</string>
+    <string name="screens_error_messages_unExpected">Something went wrong.</string>
+</resources>

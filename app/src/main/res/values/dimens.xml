@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="dimen_screen_margin">15dp</dimen>
+
+
+    <dimen name="progressWidthStateView">50dp</dimen>
+    <dimen name="no_internet_img_size">113.5dp</dimen>
+    <dimen name="no_internet_tv_horizontal_margin">22dp</dimen>
+    <dimen name="retry_margin_top">18dp</dimen>
+    <dimen name="retry_padding_start">28dp</dimen>
+    <dimen name="retry_padding_top">9dp</dimen>
+    <dimen name="retry_padding_drawable">7dp</dimen>
+    <dimen name="retry_font_size">13sp</dimen>
+</resources>
