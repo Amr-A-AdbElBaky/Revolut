@@ -1,5 +1,7 @@
 package com.revolut.features.rates.presentation.view.activity
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -33,7 +35,7 @@ class RateActivity :DaggerAppCompatActivity() {
         setContentView(R.layout.activity_rates)
 
         initViews()
-        viewModel.getCurrencies()
+        viewModel.getCurrencies(Rate())
         initViewModelObservations()
     }
 
@@ -60,7 +62,7 @@ class RateActivity :DaggerAppCompatActivity() {
     }
     private fun setErrorView(){
         if (mRatesAdapter.isEmpty())
-            svRates.setUnexpectedError { viewModel.getCurrencies()}
+            svRates.setUnexpectedError { viewModel.getCurrencies(Rate())}
         else{
             svRates.setContent()
             if (snackBar == null || ! snackBar?.isShown!!){
@@ -81,6 +83,15 @@ class RateActivity :DaggerAppCompatActivity() {
     private fun initAdapterListeners() {
         mRatesAdapter.onCurrencyClick = {
             viewModel.getCurrencies(it)
+        }
+    }
+
+    companion object{
+        fun startMa(activity: Activity){
+            activity.startActivity(Intent(activity , RateActivity::class.java)
+                .apply {
+                    flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                })
         }
     }
 }

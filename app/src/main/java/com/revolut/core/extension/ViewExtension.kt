@@ -59,7 +59,7 @@ fun View.isVisible(): Boolean {
 fun EditText.onChange(cb: (String) -> Unit) {
     this.addTextChangedListener(object : TextWatcher {
         override fun afterTextChanged(s: Editable?) {
-            if (this@onChange.getTextString()!= s.toString())
+        //    if (this@onChange.getTextString()!= s.toString())
                 cb(s.toString())
         }
 

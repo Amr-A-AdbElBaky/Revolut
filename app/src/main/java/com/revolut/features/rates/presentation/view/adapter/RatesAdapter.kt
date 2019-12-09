@@ -43,33 +43,37 @@ class RatesAdapter : BaseRecyclerAdapter<Rate>() {
                 if (position != 0) {
                     edtRate.setText(getCurrencyValue(item.value).toString())
                 } else {
-                    if (edtRate.getTextString().isEmpty())
+                    if (edtRate.getTextString().isEmpty() && item.value == 0.0)
                         edtRate.setText("1.0")
                     else
                         edtRate.setText(item.value.toString())
 
 
-                    if (focusedPosition!= -1)
-                        edtRate.requestFocus()
+            /*        if (focusedPosition!= -1)
+                        edtRate.requestFocus()*/
                 }
 
-
-
                 edtRate.onChange {
-                  //  onCurrencyClick?.invoke(this.name)
+                    if (it!= item.value.toString()){
                     currantRateValue = if (it.isEmpty())
                         0.0
                     else
                         it.toDouble()
+               //     getItems()[position].value = currantRateValue
+
+                    item.value = currantRateValue
+                    onCurrencyClick?.invoke(item)
+                    }
                 }
-                edtRate.setOnTouchListener  {view, motionEvent ->
-                    if ( focusedPosition != position) {
+                edtRate.onFocusChange{
+                    if ( position != 0 ) {
                         focusedPosition = position
                         getItems()[position].value = getCurrencyValue(item.value)
-                        swapToTheTop(position)
+                     //   swapToTheTop(position)
                         onCurrencyClick?.invoke(item)
+                    //    edtRate.requestFocus()
                     }
-                    true
+
                 }
             }
         }

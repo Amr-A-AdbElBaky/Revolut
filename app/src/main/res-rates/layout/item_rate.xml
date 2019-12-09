@@ -12,6 +12,7 @@
         android:id="@+id/imgRate"
         android:layout_width="60dp"
         android:layout_height="60dp"
+        app:civ_circle_background_color="@color/colorRollingStone"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -22,7 +22,7 @@ class RatesViewModel @Inject constructor(
     var currentCurrency: Rate? = null
 
 
-    fun getCurrencies(rate :Rate = Rate()) {
+    fun getCurrencies(rate :Rate) {
         currentCurrency = rate
         getCurrenciesUseCase.build(rate.name).publishToObservableResource(
             ratesObservableResource,

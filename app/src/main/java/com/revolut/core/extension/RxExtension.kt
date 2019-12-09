@@ -31,9 +31,11 @@ fun <T> Single<T>.applyAsyncSchedulers(executionScheduler: Scheduler = Scheduler
         it.subscribeOn(executionScheduler).observeOn(postExecutionScheduler.scheduler)
     }
 
-fun <T, R> Flowable<T>.publishToObservableResource(res: ObservableResource<R>, doOnNext: ((R) -> Unit)? = null, doOnComplete: (() -> Unit)? = null, mapper: (T) -> R = noMapper(), executor: ThreadExecutor = JobExecutor(), postExecutor: PostExecutionThread = UIThread()): Disposable {
+fun <T, R> Flowable<T>.publishToObservableResource(res: ObservableResource<R>,
+                                                   doOnBeforeSuccess: ((data: R) -> Unit)? = null,doOnNext: ((R) -> Unit)? = null, doOnComplete: (() -> Unit)? = null, mapper: (T) -> R = noMapper(), executor: ThreadExecutor = JobExecutor(), postExecutor: PostExecutionThread = UIThread()): Disposable {
     res.loading.value = true
     return this.map(mapper).applyAsyncSchedulers(Schedulers.from(executor), postExecutor).subscribe({
+        doOnBeforeSuccess?.invoke(it)
         onSuccess(res, it)
         doOnNext?.invoke(it)
     }, {
