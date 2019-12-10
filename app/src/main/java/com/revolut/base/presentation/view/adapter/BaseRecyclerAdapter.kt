@@ -97,24 +97,22 @@ abstract class BaseRecyclerAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
 
-    fun addMoreItems(items: List<T>) {
-        val lastIndex = itemCount
-        getItems().addAll(items)
-        notifyItemRangeInserted(lastIndex, items.size)
+    fun replaceItems(items: List<T>) {
+        getItems().take(1)
+        data.addAll(items)
+        notifyItemRangeChanged(1, items.size-1)
     }
 
     fun swapToTheTop(position: Int) {
         if (position > 0) {
             data.add(0, data.removeAt(position))
             notifyDataSetChanged()
-            //  notifyItemRangeChanged(0, position+1)
         }
     }
 
-    fun setItems(items: List<T>) {
-        getItems().clear()
+    fun setItemsFirstTime(items: List<T>) {
         getItems().addAll(items)
-        notifyItemRangeChanged(0, items.size)
+        notifyItemRangeInserted(0, items.size)
     }
 
     fun isEmpty(): Boolean = getItems().isEmpty()

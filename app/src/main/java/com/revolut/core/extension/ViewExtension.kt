@@ -33,3 +33,10 @@ fun EditText.onFocusChange(action: (isFocused :Boolean) -> Unit) {
     }
 }
 
+fun EditText.getDoubleText():Double{
+    return if (this.text.toString().isEmpty())
+        0.0
+    else
+        this.text.toString().toDouble()
+}
+

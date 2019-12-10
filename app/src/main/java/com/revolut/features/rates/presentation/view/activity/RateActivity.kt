@@ -60,8 +60,13 @@ class RateActivity :DaggerAppCompatActivity() {
     private fun setSuccessLayout(rates:MutableList<Rate>) {
         svRates.setContent()
         setSnackBarVisibility(false)
-        rates.add(0 , viewModel.currentCurrency!!)
-        mRatesAdapter.setItems(rates)
+        if (mRatesAdapter.isEmpty()){
+            rates.add(0 , viewModel.currentCurrency!!)
+            mRatesAdapter.setItemsFirstTime(rates)
+        }else{
+            mRatesAdapter.replaceItems(rates)
+        }
+
 
     }
     private fun setErrorView(){

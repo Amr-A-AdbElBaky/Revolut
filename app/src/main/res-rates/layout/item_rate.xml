@@ -9,6 +9,13 @@
     android:focusableInTouchMode="true"
     >
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/verticalGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent=".5" />
+
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imgRate"
         android:layout_width="60dp"
@@ -24,11 +31,10 @@
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvRateTitle"
         android:layout_width="0dp"
-
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toEndOf="@id/imgRate"
-        app:layout_constraintEnd_toStartOf="@id/edtRate"
+        app:layout_constraintEnd_toStartOf="@id/verticalGuideline"
         android:layout_marginStart="16dp"
         android:textColor="#191C1F"
         android:textSize="16sp"
@@ -40,7 +46,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/tvRateTitle"
         app:layout_constraintStart_toEndOf="@id/imgRate"
-        app:layout_constraintEnd_toStartOf="@id/edtRate"
+        app:layout_constraintEnd_toStartOf="@id/verticalGuideline"
         android:layout_marginStart="16dp"
         android:textColor="#8B959E"
         android:textSize="14sp"
@@ -50,14 +56,13 @@
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/edtRate"
         android:layout_width="wrap_content"
-        android:minWidth="20dp"
         android:layout_height="wrap_content"
+        app:layout_constraintWidth_max="180dp"
+        android:hint="0.0"
         android:inputType="numberDecimal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@id/tvRateSubTitle"
-        android:hint="0.0"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

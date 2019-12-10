@@ -63,7 +63,8 @@ class RatesAdapter : BaseRecyclerAdapter<Rate>() {
 
                 edtRate.onFocusChange {
                     if (it && position != 0) {
-                        currantRateValue = value
+                        currantRateValue = edtRate.getDoubleText()
+                        swapToTheTop(position)
                         onCurrencyClick?.invoke(item)
                     }
                 }
