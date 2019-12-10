@@ -9,16 +9,6 @@ class ObservableResource<T> : SingleLiveEvent<T>() {
     val error: SingleLiveEvent<Throwable> = SingleLiveEvent()
     val loading: MutableLiveData<Boolean> = MutableLiveData()
 
-    fun observe(
-        owner: LifecycleOwner,
-        successObserver: Observer<in T>,
-        loadingObserver: Observer<Boolean>? = null
-
-    ) {
-        super.observe(owner, successObserver)
-        loadingObserver?.let { loading.observe(owner, it) }
-    }
-
     override fun removeObservers(owner: LifecycleOwner) {
         super.removeObservers(owner)
         loading.removeObservers(owner)

@@ -39,45 +39,38 @@ class RatesAdapter : BaseRecyclerAdapter<Rate>() {
 
         private fun View.bindLayout(item: Rate, position: Int) {
             with(item) {
-                tvRateTitle.text = item.name
+                tvRateTitle.text = name
+                tvRateSubTitle.text = name // place holder because api doesn't return subtitles && images
+
                 if (position != 0) {
-                    edtRate.setText(getCurrencyValue(item.value).toString())
-                } else {
-                    if (edtRate.getTextString().isEmpty() && item.value == 0.0)
-                        edtRate.setText("1.0")
-                    else
-                        edtRate.setText(item.value.toString())
-
-
-            /*        if (focusedPosition!= -1)
-                        edtRate.requestFocus()*/
+                    edtRate.setText(getCurrencyValue(value).toString())
+                }else {
+                    edtRate.setText(currantRateValue.toString())
+                    if (focusedPosition != -1)
+                        edtRate.requestFocus()
                 }
 
                 edtRate.onChange {
-                    if (it!= item.value.toString()){
-                    currantRateValue = if (it.isEmpty())
-                        0.0
-                    else
-                        it.toDouble()
-               //     getItems()[position].value = currantRateValue
+                    if (edtRate.hasFocus() && it.isValidDouble()) {
+                        currantRateValue = if (it.isEmpty())
+                            0.0
+                        else
+                            it.toDouble()
 
-                    item.value = currantRateValue
-                    onCurrencyClick?.invoke(item)
+                        getItems()[position].value = currantRateValue
+                        notifyItemRangeChanged(1, itemCount - 1)
                     }
                 }
-                edtRate.onFocusChange{
-                    if ( position != 0 ) {
-                        focusedPosition = position
-                        getItems()[position].value = getCurrencyValue(item.value)
-                     //   swapToTheTop(position)
-                        onCurrencyClick?.invoke(item)
-                    //    edtRate.requestFocus()
-                    }
 
+                edtRate.onFocusChange {
+                    if (it && position != 0) {
+                        focusedPosition = position
+                        currantRateValue = value
+                        onCurrencyClick?.invoke(item)
+                    }
                 }
             }
         }
-
 
         private fun getCurrencyValue(baseValue: Double): Double {
             return (baseValue * currantRateValue)

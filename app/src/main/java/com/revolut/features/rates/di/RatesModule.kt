@@ -34,7 +34,6 @@ abstract class RatesPresentationModule {
     @RatesScope
     @IntoMap
     @ViewModelKey(RatesViewModel::class)
-
     internal abstract fun ratesViewModel(viewModel: RatesViewModel): ViewModel
 }
 

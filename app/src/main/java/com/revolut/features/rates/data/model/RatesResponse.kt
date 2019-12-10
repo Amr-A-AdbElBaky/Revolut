@@ -1,6 +1,5 @@
 package com.revolut.features.rates.data.model
 
-import java.util.*
 import kotlin.collections.HashMap
 
 

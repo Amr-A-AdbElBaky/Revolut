@@ -6,16 +6,18 @@
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_marginBottom="16dp"
-    android:focusableInTouchMode="true">
+    android:focusableInTouchMode="true"
+    >
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imgRate"
         android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_height="50dp"
         app:civ_circle_background_color="@color/colorRollingStone"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:src="@mipmap/ic_revolut"
 
         />
 
@@ -41,6 +43,7 @@
         android:layout_marginStart="16dp"
         android:textColor="#8B959E"
         android:textSize="14sp"
+        android:layout_marginTop="2dp"
         tools:text="US Dollar"/>
 
     <androidx.appcompat.widget.AppCompatEditText
@@ -51,7 +54,8 @@
         android:inputType="numberDecimal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:hint="0.0"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

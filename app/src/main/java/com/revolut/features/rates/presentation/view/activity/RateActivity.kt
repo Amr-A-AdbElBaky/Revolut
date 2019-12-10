@@ -3,6 +3,7 @@ package com.revolut.features.rates.presentation.view.activity
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
@@ -47,15 +48,18 @@ class RateActivity :DaggerAppCompatActivity() {
             },
             doOnLoading = {
                 svRates.setLoading()
-            },
-            doOnError = {
-                setErrorView()
             })
+
+        viewModel.errorObserver.observe(this, Observer {
+            if (it)
+                setErrorView()
+        })
 
     }
 
     private fun setSuccessLayout(rates:MutableList<Rate>) {
         svRates.setContent()
+        setSnackBarVisibility(false)
         rates.add(0 , viewModel.currentCurrency!!)
         mRatesAdapter.setItems(rates)
 
@@ -65,9 +69,16 @@ class RateActivity :DaggerAppCompatActivity() {
             svRates.setUnexpectedError { viewModel.getCurrencies(Rate())}
         else{
             svRates.setContent()
-            if (snackBar == null || ! snackBar?.isShown!!){
-                snackBar = rootView.getSnack(getString(R.string.screens_error_messages_unExpected))
-                snackBar?.show()
+            setSnackBarVisibility(true)
+        }
+    }
+    private fun setSnackBarVisibility(isVisible :Boolean){
+        if (snackBar == null || ! snackBar?.isShown!!){
+            if (isVisible){
+            snackBar = rootView.getSnack(getString(R.string.screens_error_messages_unExpected))
+            snackBar?.show()
+            }else{
+                snackBar?.dismiss()
             }
         }
     }

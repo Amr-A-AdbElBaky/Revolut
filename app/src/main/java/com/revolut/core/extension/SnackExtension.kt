@@ -16,18 +16,6 @@ fun View.showSnack(@StringRes messageRes: Int, @ColorRes backgroundColor: Int = 
     return getSnack(message = resources.getString(messageRes), backgroundColor=backgroundColor,length = length,doAction = doAction)
 }
 
-fun View.getSuccessSnack(@StringRes messageRes: Int, length: Int = 4000, doAction: Snackbar.() -> Unit = {}) :Snackbar {
-    return showSnack(messageRes,backgroundColor = R.color.colorSuccessGreen)
-}
-fun View.showSnackNetworkError(): Snackbar {
-    return this.getSnack(context.resources.getString(R.string.screens_error_messages_internet_down))
-}
-
-fun View.showSnackUnExpectedError(): Snackbar {
-    return this.getSnack(context.resources.getString(R.string.screens_error_messages_unExpected))
-}
-
-
 fun View.getSnack(message: String, @ColorRes backgroundColor: Int = R.color.colorAlertRed, length: Int = 4000,
                    doAction: Snackbar.() -> Unit = {}, gravity: Int = Gravity.BOTTOM): Snackbar {
     val snack = Snackbar.make(this, message.replace("\n",""), length)
@@ -45,10 +33,6 @@ fun View.getSnack(message: String, @ColorRes backgroundColor: Int = R.color.colo
     mTextView.maxLines=1000
     // snack.show()
     return snack
-}
-
-fun Snackbar.action(@StringRes actionRes: Int, color: Int? = null, listener: (View) -> Unit) {
-    action(view.resources.getString(actionRes), color, listener)
 }
 
 
