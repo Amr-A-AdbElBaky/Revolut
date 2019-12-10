@@ -14,6 +14,7 @@ class RatesAdapter : BaseRecyclerAdapter<Rate>() {
 
     var onCurrencyClick: OneParamFunction<Rate>? = null
     private var currantRateValue = 1.0
+    var firstItemFocus  = false
 
     override fun mainItemView(parent: ViewGroup): View {
         return parent.getInflatedView(R.layout.item_rate)
@@ -44,8 +45,10 @@ class RatesAdapter : BaseRecyclerAdapter<Rate>() {
                 if (position != 0) {
                     edtRate.setText(String.format("%.2f", getCurrencyValue(value)))
                 }else {
-                    if (currantRateValue!= 0.0)
+                    if (currantRateValue!= 0.0 && ! firstItemFocus){
                         edtRate.setText(currantRateValue.toString())
+                        firstItemFocus = true
+                    }
 
                 }
 
@@ -64,6 +67,7 @@ class RatesAdapter : BaseRecyclerAdapter<Rate>() {
                 edtRate.onFocusChange {
                     if (it && position != 0) {
                         currantRateValue = edtRate.getDoubleText()
+                        firstItemFocus = false
                         swapToTheTop(position)
                         onCurrencyClick?.invoke(item)
                     }

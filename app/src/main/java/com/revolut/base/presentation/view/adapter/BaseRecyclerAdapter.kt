@@ -98,9 +98,14 @@ abstract class BaseRecyclerAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHo
 
 
     fun replaceItems(items: List<T>) {
-        getItems().take(1)
+        val lastIdex = data.size-1
+       data =  data.filterIndexed { index, t ->
+            index == 0
+        } as MutableList<T>
+        notifyItemRangeChanged(1, lastIdex)
         data.addAll(items)
-        notifyItemRangeChanged(1, items.size-1)
+        notifyDataSetChanged()
+      //  notifyItemRangeInserted(1, items.size-1)
     }
 
     fun swapToTheTop(position: Int) {
