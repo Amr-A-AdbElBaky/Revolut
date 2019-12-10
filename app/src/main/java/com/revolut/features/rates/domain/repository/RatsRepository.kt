@@ -7,5 +7,4 @@ import io.reactivex.Flowable
 interface RatsRepository {
 
     fun getCurrencies(currency: String): Flowable<RatesEntity>
-    fun isErrorHappened() :Flowable<Boolean>
 }

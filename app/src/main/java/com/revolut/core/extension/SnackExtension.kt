@@ -6,17 +6,10 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.annotation.ColorRes
-import androidx.annotation.StringRes
-import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.google.android.material.snackbar.Snackbar
 import com.revolut.R
 
-
-fun View.showSnack(@StringRes messageRes: Int, @ColorRes backgroundColor: Int = R.color.colorAlertRed, length: Int = 4000, doAction: Snackbar.() -> Unit = {}): Snackbar {
-    return getSnack(message = resources.getString(messageRes), backgroundColor=backgroundColor,length = length,doAction = doAction)
-}
-
-fun View.getSnack(message: String, @ColorRes backgroundColor: Int = R.color.colorAlertRed, length: Int = 4000,
+fun View.getSnack(message: String, @ColorRes backgroundColor: Int = R.color.colorAlertRed, length: Int =  Snackbar.LENGTH_INDEFINITE,
                    doAction: Snackbar.() -> Unit = {}, gravity: Int = Gravity.BOTTOM): Snackbar {
     val snack = Snackbar.make(this, message.replace("\n",""), length)
     snack.doAction()

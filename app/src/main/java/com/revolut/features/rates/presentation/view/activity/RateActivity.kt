@@ -3,12 +3,12 @@ package com.revolut.features.rates.presentation.view.activity
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.revolut.R
 import com.revolut.core.di.module.ViewModelFactory
+import com.revolut.core.extension.action
 import com.revolut.core.extension.getSnack
 import com.revolut.features.rates.domain.entity.Rate
 import com.revolut.features.rates.presentation.view.adapter.RatesAdapter
@@ -48,12 +48,10 @@ class RateActivity :DaggerAppCompatActivity() {
             },
             doOnLoading = {
                 svRates.setLoading()
+            }, doOnError = {
+                setErrorView()
             })
 
-        viewModel.errorObserver.observe(this, Observer {
-            if (it)
-                setErrorView()
-        })
 
     }
 
@@ -82,6 +80,9 @@ class RateActivity :DaggerAppCompatActivity() {
             if (isVisible){
             snackBar = rootView.getSnack(getString(R.string.screens_error_messages_unExpected))
             snackBar?.show()
+                snackBar?.action(getString(R.string.label_retry) , R.color.colorRollingStone, listener = {
+                    viewModel.getCurrencies(viewModel.currentCurrency!!)
+                })
             }else{
                 snackBar?.dismiss()
             }

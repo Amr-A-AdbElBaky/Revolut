@@ -10,9 +10,6 @@ import javax.inject.Inject
 
 class RatesRepositoryImpl @Inject constructor(private val ratesRemoteDS: RatesRemoteDS) :
     RatsRepository {
-    override fun isErrorHappened(): Flowable<Boolean> {
-        return ratesRemoteDS.isError()
-    }
 
     override fun getCurrencies(currency: String): Flowable<RatesEntity> {
         return ratesRemoteDS.getCurrencies(currency).map { it.mapToEntity() }
