@@ -13,7 +13,6 @@ import kotlinx.android.synthetic.main.item_rate.view.*
 class RatesAdapter : BaseRecyclerAdapter<Rate>() {
 
     var onCurrencyClick: OneParamFunction<Rate>? = null
-    private var focusedPosition = -1
     private var currantRateValue = 1.0
 
     override fun mainItemView(parent: ViewGroup): View {
@@ -43,11 +42,11 @@ class RatesAdapter : BaseRecyclerAdapter<Rate>() {
                 tvRateSubTitle.text = name // place holder because api doesn't return subtitles && images
 
                 if (position != 0) {
-                    edtRate.setText(getCurrencyValue(value).toString())
+                    edtRate.setText(String.format("%.2f", getCurrencyValue(value)))
                 }else {
-                    edtRate.setText(currantRateValue.toString())
-                    if (focusedPosition != -1)
-                        edtRate.requestFocus()
+                    if (currantRateValue!= 0.0)
+                        edtRate.setText(currantRateValue.toString())
+
                 }
 
                 edtRate.onChange {
@@ -64,7 +63,6 @@ class RatesAdapter : BaseRecyclerAdapter<Rate>() {
 
                 edtRate.onFocusChange {
                     if (it && position != 0) {
-                        focusedPosition = position
                         currantRateValue = value
                         onCurrencyClick?.invoke(item)
                     }
